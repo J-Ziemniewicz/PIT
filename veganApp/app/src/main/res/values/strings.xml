@@ -12,4 +12,5 @@
     <string name="menu_opinion">Opinie</string>
     <string name="menu_share">Udostępnij</string>
     <string name="menu_settings">Ustawienia</string>
+    <string name="menu_button">Menu</string>
 </resources>
