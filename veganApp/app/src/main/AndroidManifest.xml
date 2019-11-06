@@ -4,11 +4,22 @@
 
     <application
             android:allowBackup="true"
-            android:icon="@drawable/freefrom_icon"
+            android:icon="@drawable/freefrom_app_icon"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme" android:fullBackupContent="@xml/backup_descriptor">
+        <activity
+                android:name=".OpinionActivity">
+        </activity>
+        <activity android:name=".ProfilActivity">
+        </activity>
+        <activity android:name=".SettingsActivity">
+        </activity>
+        <activity android:name=".ShareActivity">
+        </activity>
+        <activity android:name=".FavouriteActivity">
+        </activity>
         <activity
                 android:name=".LoadingActivity"
                 android:configChanges="orientation|keyboardHidden|screenSize"

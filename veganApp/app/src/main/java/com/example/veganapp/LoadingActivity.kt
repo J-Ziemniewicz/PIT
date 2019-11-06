@@ -72,15 +72,6 @@ class LoadingActivity : AppCompatActivity() {
 
     }
 
-    override fun onPostCreate(savedInstanceState: Bundle?) {
-        super.onPostCreate(savedInstanceState)
-
-        // Trigger the initial hide() shortly after the activity has been
-        // created, to briefly hint to the user that UI controls
-        // are available.
-
-    }
-
     private fun toggle() {
         if (mVisible) {
             hide()

@@ -1,5 +1,6 @@
 package com.example.veganapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
@@ -82,5 +83,55 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val navView: NavigationView = findViewById(R.id.nav_view)
         navView.setNavigationItemSelectedListener(this)
         drawerLayout.openDrawer(Gravity.START)
+    }
+
+    fun profileClick(menuItem: MenuItem){
+        val thread = Thread {
+            run{
+                val intent = Intent(this, ProfilActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        thread.start()
+    }
+
+    fun favouriteClick(menuItem: MenuItem){
+        val thread = Thread {
+            run{
+                val intent = Intent(this, FavouriteActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        thread.start()
+    }
+
+    fun opinionClick(menuItem: MenuItem){
+        val thread = Thread {
+            run{
+                val intent = Intent(this, OpinionActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        thread.start()
+    }
+
+    fun shareClick(menuItem: MenuItem){
+        val thread = Thread {
+            run{
+                val intent = Intent(this, ShareActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        thread.start()
+    }
+
+    fun setClick(menuItem: MenuItem){
+        val thread = Thread {
+            run{
+                val intent = Intent(this, SettingsActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        thread.start()
     }
 }

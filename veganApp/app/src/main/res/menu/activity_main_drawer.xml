@@ -6,19 +6,19 @@
     <group android:checkableBehavior="single">
         <item
                 android:id="@+id/nav_profile"
-                android:title="@string/menu_profile"/>
+                android:title="@string/menu_profile" android:onClick="profileClick"/>
         <item
                 android:id="@+id/nav_favourite"
-                android:title="@string/menu_favourite"/>
+                android:title="@string/menu_favourite" android:onClick="favouriteClick"/>
         <item
                 android:id="@+id/nav_opinion"
-                android:title="@string/menu_opinion"/>
+                android:title="@string/menu_opinion" android:onClick="opinionClick"/>
         <item
                 android:id="@+id/nav_share"
-                android:title="@string/menu_share"/>
+                android:title="@string/menu_share" android:onClick="shareClick"/>
         <item
                 android:id="@+id/nav_settings"
-                android:title="@string/menu_settings"/>
+                android:title="@string/menu_settings" android:onClick="setClick"/>
     </group>
 
 
