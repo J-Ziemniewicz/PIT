@@ -7,4 +7,61 @@
         android:layout_height="match_parent"
         tools:context=".ProfilActivity">
 
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <TextView
+                android:text="Dieta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView2" android:layout_marginTop="32dp"
+                android:layout_marginStart="8dp" android:layout_marginEnd="8dp"
+                android:textSize="30sp" android:gravity="center" android:layout_marginBottom="8dp"
+        />
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/editText"
+                android:textSize="16sp" android:hint="Nazwa diety"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"/>
+        <TextView
+                android:text="Alergeny"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView3"
+                android:textSize="30sp" android:gravity="center"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+        />
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp">
+            <TextView
+                    android:text="Alergia 1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/textView4" android:paddingBottom="5dp"/>
+            <TextView
+                    android:text="Alergia2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/textView5"/>
+            <TextView
+                    android:text="Alergia3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/textView6"/>
+            <TextView
+                    android:text="Alergia4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/textView7"/>
+            <TextView
+                    android:text="Alergia5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/textView8"/>
+        </LinearLayout>
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
