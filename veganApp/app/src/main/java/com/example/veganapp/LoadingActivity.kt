@@ -1,12 +1,12 @@
 package com.example.veganapp
 
-import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import kotlinx.android.synthetic.main.activity_loading.*
-import java.lang.Boolean.FALSE
+import org.jetbrains.anko.startActivity
+import java.lang.Thread.sleep
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -54,14 +54,15 @@ class LoadingActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.hide()
         mVisible = false
-        val thread = Thread {
-            run{
-                Thread.sleep(2000)
-                val intent = Intent(this,MainActivity::class.java)
-                startActivity(intent)
+
+        //anko thread
+        Thread {
+            run {
+                sleep(1000)
+                finish()
+                startActivity<LoginActivity>()
             }
-        }
-        thread.start()
+        }.start()
 
         // Set up the user interaction to manually show or hide the system UI.
         fullScreenLayout.setOnClickListener { toggle() }

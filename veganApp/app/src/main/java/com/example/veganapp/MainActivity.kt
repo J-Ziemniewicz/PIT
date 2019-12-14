@@ -5,15 +5,19 @@ import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
-import android.view.MenuItem
 import android.support.v4.widget.DrawerLayout
 import android.support.design.widget.NavigationView
 import android.support.v7.app.AppCompatActivity
-import android.view.Gravity
-import android.view.Menu
-import android.view.View
+import android.view.*
+import android.widget.TextView
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.noButton
+import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.yesButton
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity() {
+    private lateinit var mDrawerLayout: DrawerLayout
+    private lateinit var mNavigationView: NavigationView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +30,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 .setAction("Action", null).show()
         }
 
+        mDrawerLayout = findViewById(R.id.drawer_layout)
+        mNavigationView = findViewById(R.id.nav_view)
+        mNavigationView.setNavigationItemSelectedListener { item ->
+            navigationItemSelectedHandler(item)
+        }
+
+        val headerView: View = mNavigationView.getHeaderView(0)
+        val navUsername: TextView = headerView.findViewById(R.id.usernameTextView)
+        navUsername.text = getCurrentUser(applicationContext)
     }
 
     override fun onBackPressed() {
@@ -53,41 +66,42 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+    private fun navigationItemSelectedHandler(item: MenuItem): Boolean {
+        item.isChecked = false // czemu to nie działa?
+        // close drawer when item is tapped
+        mDrawerLayout.closeDrawers()
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_profile -> {
-
+                profileClick(item)
             }
             R.id.nav_favourite -> {
-
+                favouriteClick(item)
             }
             R.id.nav_opinion -> {
-
+                opinionClick(item)
             }
 
             R.id.nav_share -> {
-
+                shareClick(item)
             }
             R.id.nav_settings -> {
-
+                setClick(item)
+            }
+            R.id.nav_logout -> {
+                logoutClick(item)
             }
         }
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
 
-    fun openMenu(view: View){
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        val navView: NavigationView = findViewById(R.id.nav_view)
-        navView.setNavigationItemSelectedListener(this)
-        drawerLayout.openDrawer(Gravity.START)
+    fun openMenu(view: View) {
+        mDrawerLayout.openDrawer(Gravity.START)
     }
 
-    fun profileClick(menuItem: MenuItem){
+    private fun profileClick(menuItem: MenuItem) {
         val thread = Thread {
-            run{
+            run {
                 val intent = Intent(this, ProfilActivity::class.java)
                 startActivity(intent)
             }
@@ -95,9 +109,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         thread.start()
     }
 
-    fun favouriteClick(menuItem: MenuItem){
+    private fun favouriteClick(menuItem: MenuItem) {
         val thread = Thread {
-            run{
+            run {
                 val intent = Intent(this, FavouriteActivity::class.java)
                 startActivity(intent)
             }
@@ -105,9 +119,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         thread.start()
     }
 
-    fun opinionClick(menuItem: MenuItem){
+    private fun opinionClick(menuItem: MenuItem) {
         val thread = Thread {
-            run{
+            run {
                 val intent = Intent(this, OpinionActivity::class.java)
                 startActivity(intent)
             }
@@ -115,9 +129,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         thread.start()
     }
 
-    fun shareClick(menuItem: MenuItem){
+    private fun shareClick(menuItem: MenuItem) {
         val thread = Thread {
-            run{
+            run {
                 val intent = Intent(this, ShareActivity::class.java)
                 startActivity(intent)
             }
@@ -125,13 +139,25 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         thread.start()
     }
 
-    fun setClick(menuItem: MenuItem){
+    private fun setClick(menuItem: MenuItem) {
         val thread = Thread {
-            run{
+            run {
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
             }
         }
         thread.start()
+    }
+
+    private fun logoutClick(menuItem: MenuItem) {
+        alert("Jesteś pewien?") {
+            title = "Wylogowywanie"
+            yesButton {
+                saveCurrentUser(applicationContext, "", "")
+                startActivity<LoginActivity>()
+                finish()
+            }
+            noButton {}
+        }.show()
     }
 }
