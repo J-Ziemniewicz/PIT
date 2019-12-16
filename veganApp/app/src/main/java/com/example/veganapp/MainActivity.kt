@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity() {
     private fun profileClick(menuItem: MenuItem) {
         val thread = Thread {
             run {
-                val intent = Intent(this, ProfilActivity::class.java)
+                val intent = Intent(this, DietList::class.java)
                 startActivity(intent)
             }
         }

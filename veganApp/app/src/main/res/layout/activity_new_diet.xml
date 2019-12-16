@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".NewDiet">
+
+    <LinearLayout
+            android:focusableInTouchMode="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:text="@string/diet"
+                android:textSize="30sp" />
+
+        <EditText
+                android:id="@+id/dietNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:capitalize="sentences"
+                android:ems="10"
+                android:hint="@string/hint_diet_name"
+                android:inputType="textPersonName"
+                android:textSize="16sp" />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:gravity="center"
+                android:text="@string/allergens"
+                android:textSize="30sp" />
+
+        <include layout="@layout/allergen_choice" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

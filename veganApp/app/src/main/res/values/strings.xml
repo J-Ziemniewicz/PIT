@@ -30,4 +30,8 @@
     <string name="back">Powrót</string>
     <string name="ok">OK</string>
     <string name="continue_without_login">Kontunuuj bez logowania</string>
+    <string name="title_activity_diet_list">DietList</string>
+    <string name="hint_diet_name">Nazwa diety</string>
+    <string name="allergens">Alergeny</string>
+    <string name="diet">Dieta</string>
 </resources>

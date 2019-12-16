@@ -1,13 +1,11 @@
 package com.example.veganapp
 
 import android.content.Context
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
-
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import com.example.veganapp.DbHelper
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.*
 
