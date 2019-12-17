@@ -51,7 +51,18 @@
                 android:text="@string/allergens"
                 android:textSize="30sp" />
 
-        <include layout="@layout/allergen_choice" />
+        <include
+                layout="@layout/allergen_choice"
+                android:layout_width="match_parent"
+                android:layout_height="414dp" />
+
+        <Button
+                android:id="@+id/saveDietButton"
+                android:layout_width="200dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:text="@string/save"
+                android:textSize="20sp" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

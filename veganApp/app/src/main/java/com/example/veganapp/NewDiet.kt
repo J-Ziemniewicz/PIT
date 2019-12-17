@@ -11,6 +11,7 @@ import android.view.inputmethod.InputMethodManager
 import com.example.veganapp.model.Allergen
 import kotlinx.android.synthetic.main.activity_new_diet.*
 import kotlinx.android.synthetic.main.allergen_choice.*
+import org.jetbrains.anko.toast
 
 class NewDiet : AppCompatActivity() {
     private lateinit var layoutManager: RecyclerView.LayoutManager
@@ -20,7 +21,6 @@ class NewDiet : AppCompatActivity() {
         setContentView(R.layout.activity_new_diet)
 
         dietNameEditText.setOnFocusChangeListener { view, b -> hideKeyboard(view, b) }
-
 
         val allergenList = ArrayList<Allergen>()
         allergenList.add(Allergen("Mleko", false))
@@ -34,6 +34,16 @@ class NewDiet : AppCompatActivity() {
         allergensRecycleView.layoutManager = layoutManager
         allergensRecycleView.adapter = AlergenRecycleViewAdapter(this.applicationContext, allergenList)
         allergensRecycleView.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
+
+        saveDietButton.setOnClickListener {
+            DbHelper(applicationContext).addDiet(
+                getCurrentUser(applicationContext),
+                dietNameEditText.text.toString(),
+                allergenList
+            )
+            toast("Zapisano")
+            finish()
+        }
     }
 
     private fun hideKeyboard(view: View, hasFocus: Boolean) {

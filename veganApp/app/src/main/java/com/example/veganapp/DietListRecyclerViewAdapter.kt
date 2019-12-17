@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.example.veganapp.model.Allergen
 import com.example.veganapp.model.Diet
 import kotlinx.android.synthetic.main.diet_recycler_row.view.*
 import org.jetbrains.anko.toast
@@ -34,6 +35,7 @@ class DietListRecyclerViewAdapter(
         val diet: Diet = dietList[position]
 
         holder.dietName?.text = diet.name
+        holder.dietAllergens?.text = getActiveAllergens(diet.allergens)
 
 
         holder.itemView.setOnClickListener {
@@ -43,5 +45,17 @@ class DietListRecyclerViewAdapter(
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val dietName: TextView? = view.dietNameTextView
+        val dietAllergens: TextView? = view.dietAllergensTextView
+    }
+
+    private fun getActiveAllergens(allergenList: ArrayList<Allergen>): String {
+        var str = "Alergeny: "
+        allergenList.forEach {
+            if (it.state) {
+                str += it.name
+                str += ", "
+            }
+        }
+        return str.removeSuffix(", ")
     }
 }

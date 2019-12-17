@@ -2,6 +2,7 @@ package com.example.veganapp
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,8 @@ import android.widget.CheckBox
 import android.widget.TextView
 import com.example.veganapp.model.Allergen
 import kotlinx.android.synthetic.main.alergen_recycler_row.view.*
+import org.jetbrains.anko.sdk27.coroutines.onCheckedChange
+import org.jetbrains.anko.sdk27.coroutines.onClick
 
 class AlergenRecycleViewAdapter(
     private val context: Context,
@@ -36,7 +39,12 @@ class AlergenRecycleViewAdapter(
         holder.itemView.setOnClickListener {
             allergen.state = !allergen.state
             holder.allergenState?.isChecked = allergen.state
+            Log.d("XDXDXD", allergen.name + " " + allergen.state)
         }
+//        holder.allergenState?.onCheckedChange { buttonView, isChecked ->
+//            allergen.state = isChecked
+//            Log.d("XDXDXD", allergen.name + " " + allergen.state)
+//        }
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

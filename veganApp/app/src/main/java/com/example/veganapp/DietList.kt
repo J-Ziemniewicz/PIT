@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.content_diet_list.*
 import org.jetbrains.anko.startActivity
 
 class DietList : AppCompatActivity() {
-    private lateinit var dietList: ArrayList<Diet>
+    private val dietList: ArrayList<Diet> = ArrayList()
     private lateinit var layoutManager: RecyclerView.LayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,9 +21,7 @@ class DietList : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        dietList = ArrayList()
-        dietList.add(Diet("piewrsza dieta"))
-        dietList.add(Diet("inna dieta"))
+        dietList.addAll(DbHelper(applicationContext).getUserDiets(getCurrentUser(applicationContext)))
 
         layoutManager = LinearLayoutManager(this)
         dietListRecyclerView.layoutManager = layoutManager
@@ -35,5 +33,10 @@ class DietList : AppCompatActivity() {
         }
     }
 
-
+    override fun onResume() {
+        super.onResume()
+        dietList.clear()
+        dietList.addAll(DbHelper(applicationContext).getUserDiets(getCurrentUser(applicationContext)))
+        dietListRecyclerView.adapter?.notifyDataSetChanged()
+    }
 }

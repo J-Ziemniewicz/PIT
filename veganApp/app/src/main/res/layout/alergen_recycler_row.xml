@@ -18,6 +18,9 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
+            android:clickable="false"
+            android:focusableInTouchMode="false"
+            android:focusable="false"
             android:id="@+id/allergenStateCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -1,5 +1,6 @@
 package com.example.veganapp
 
+import android.content.Context
 import android.graphics.BitmapFactory
 import android.os.Environment.getExternalStorageDirectory
 import android.support.v7.widget.RecyclerView
@@ -16,7 +17,7 @@ import java.io.File
 
 
 class RecyclerViewAdapter(
-    private val context: FavouriteActivity,
+    private val context: Context,
     private val restaurantList: ArrayList<Restaurant>
 ) :
     RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
