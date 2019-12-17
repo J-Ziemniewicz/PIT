@@ -1,6 +1,7 @@
 package com.example.veganapp
 
 import android.content.Intent
+import android.location.Location
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
@@ -10,18 +11,26 @@ import android.support.design.widget.NavigationView
 import android.support.v7.app.AppCompatActivity
 import android.view.*
 import android.widget.TextView
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.yesButton
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mDrawerLayout: DrawerLayout
     private lateinit var mNavigationView: NavigationView
+    private lateinit var sMapFragment : SupportMapFragment
+    private lateinit var lastLocation: Location
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        sMapFragment = SupportMapFragment.newInstance()
         setContentView(R.layout.activity_main)
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
@@ -39,6 +48,11 @@ class MainActivity : AppCompatActivity() {
         val headerView: View = mNavigationView.getHeaderView(0)
         val navUsername: TextView = headerView.findViewById(R.id.usernameTextView)
         navUsername.text = getCurrentUser(applicationContext)
+        sMapFragment.getMapAsync(this);
+        val manager = supportFragmentManager
+        val transaction = manager.beginTransaction()
+        transaction.add(R.id.map, sMapFragment)
+        transaction.commit()
     }
 
     override fun onBackPressed() {
@@ -159,5 +173,9 @@ class MainActivity : AppCompatActivity() {
             }
             noButton {}
         }.show()
+    }
+
+    override fun onMapReady(p0: GoogleMap?) {
+
     }
 }
