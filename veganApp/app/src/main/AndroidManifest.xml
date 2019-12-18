@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         package="com.example.veganapp">
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -17,8 +19,17 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
-        <uses-library android:name="org.apache.http.legacy" android:required="false" />
-        <activity android:name=".NewDiet"></activity>
+        <activity
+                android:name=".EditDiet"
+                android:windowSoftInputMode="adjustPan" />
+
+        <uses-library
+                android:name="org.apache.http.legacy"
+                android:required="false" />
+
+        <activity
+                android:name=".NewDiet"
+                android:windowSoftInputMode="adjustPan" />
         <activity
                 android:name=".DietList"
                 android:label="@string/title_activity_diet_list"
@@ -47,14 +58,16 @@
         </activity>
         <activity
                 android:name=".MainActivity"
-                android:theme="@style/AppTheme.NoActionBar" />
+                android:theme="@style/AppTheme.NoActionBar" /> <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
+        <meta-data
+                android:name="com.google.android.gms.ads.APPLICATION_ID"
+                android:value="ca-app-pub-3940256099942544~3347511713" />
         <meta-data
                 android:name="com.google.android.gms.version"
-                android:value="@integer/google_play_services_version"/>
-
+                android:value="@integer/google_play_services_version" />
         <meta-data
                 android:name="com.google.android.geo.API_KEY"
-                android:value="AIzaSyDNRCh_1b6BsN3UpeDNAz2Jl37KuHZ48qo"></meta-data>
+                android:value="AIzaSyDNRCh_1b6BsN3UpeDNAz2Jl37KuHZ48qo" />
     </application>
 
 </manifest>

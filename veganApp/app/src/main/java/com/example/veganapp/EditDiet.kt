@@ -1,34 +1,36 @@
 package com.example.veganapp
 
 import android.content.Context
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import android.view.View
-import android.view.inputmethod.InputMethodManager
-import com.example.veganapp.model.Allergen
+import com.example.veganapp.model.Diet
+import kotlinx.android.synthetic.main.activity_edit_diet.*
 import kotlinx.android.synthetic.main.activity_new_diet.*
+import kotlinx.android.synthetic.main.activity_new_diet.dietNameEditText
+import kotlinx.android.synthetic.main.activity_new_diet.saveDietButton
 import kotlinx.android.synthetic.main.allergen_choice.*
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.noButton
 import org.jetbrains.anko.toast
+import org.jetbrains.anko.yesButton
 
-class NewDiet : AppCompatActivity() {
+class EditDiet : AppCompatActivity() {
     private lateinit var layoutManager: RecyclerView.LayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_new_diet)
+        setContentView(R.layout.activity_edit_diet)
+
+        val diet = intent.getParcelableExtra("diet") as Diet
+        val allergenList = diet.allergens
 
         dietNameEditText.setOnFocusChangeListener { view, b -> hideKeyboard(view, b) }
-
-        val allergenList = ArrayList<Allergen>()
-        allergenList.add(Allergen("Mleko", false))
-        allergenList.add(Allergen("Jaja", false))
-        allergenList.add(Allergen("Gluten", false))
-        allergenList.add(Allergen("Soja", false))
-        allergenList.add(Allergen("Orzechy", false))
-        allergenList.add(Allergen("Cytrusy", false))
+        dietNameEditText.setText(diet.name)
 
         layoutManager = LinearLayoutManager(this)
         allergensRecycleView.layoutManager = layoutManager
@@ -47,9 +49,20 @@ class NewDiet : AppCompatActivity() {
                 allergenList
             )
             toast("Zapisano")
-            finish()
         }
+
+        cancelButton.setOnClickListener { onBackPressed() }
     }
+
+//    override fun onBackPressed() {
+//        alert("Zmiany nie zostaną zapisane") {
+//            title = "Powrót"
+//            yesButton {
+//                super.onBackPressed()
+//            }
+//            noButton {}
+//        }.show()
+//    }
 
     private fun hideKeyboard(view: View, hasFocus: Boolean) {
         if (!hasFocus) {

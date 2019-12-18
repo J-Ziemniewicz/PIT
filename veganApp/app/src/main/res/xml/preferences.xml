@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory android:title="Podstawowe">
+
+        <SwitchPreferenceCompat
+                app:key="notifications"
+                app:title="Powiadomienia" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Wygląd">
+
+        <CheckBoxPreference
+                android:defaultValue="false"
+                android:key="check_box_preference_1"
+                android:title="Tryb ciemny" />
+    </PreferenceCategory>
+
+
+    <PreferenceCategory android:title="Prywatność">
+
+        <SwitchPreference
+                android:defaultValue="false"
+                android:key="switch_preference_1"
+                android:summary="Pozwól na zbieranie informacji w celu lepszego dopasowania reklam"
+                android:title="Zbieranie danych" />
+        <Preference
+                app:key="privacy"
+                app:summary=""
+                app:title="Polityka prywatności" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="O aplikacji">
+        <Preference
+                app:key="feedback"
+                app:summary="Coś nie działa, brakuje jakiejś funckji?\nPodziel się opinią."
+                app:title="Opinia" />
+        <Preference
+                app:key="about"
+                app:summary=""
+                app:title="Wersja" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
