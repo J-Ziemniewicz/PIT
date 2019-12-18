@@ -1,6 +1,6 @@
 package com.example.veganapp
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +8,7 @@ import android.widget.TextView
 import com.example.veganapp.model.Allergen
 import com.example.veganapp.model.Diet
 import kotlinx.android.synthetic.main.diet_recycler_row.view.*
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.startActivity
 
 
 class DietListRecyclerViewAdapter(
@@ -39,7 +39,7 @@ class DietListRecyclerViewAdapter(
 
 
         holder.itemView.setOnClickListener {
-            context.toast("TODO")
+            context.startActivity<EditDiet>("diet" to diet)
         }
     }
 

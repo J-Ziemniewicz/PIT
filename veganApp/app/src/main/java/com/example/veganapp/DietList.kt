@@ -1,10 +1,10 @@
 package com.example.veganapp
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.veganapp.model.Diet
 import kotlinx.android.synthetic.main.activity_diet_list.*
 import kotlinx.android.synthetic.main.content_diet_list.*
@@ -26,7 +26,12 @@ class DietList : AppCompatActivity() {
         layoutManager = LinearLayoutManager(this)
         dietListRecyclerView.layoutManager = layoutManager
         dietListRecyclerView.adapter = DietListRecyclerViewAdapter(this, dietList)
-        dietListRecyclerView.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
+        dietListRecyclerView.addItemDecoration(
+            DividerItemDecoration(
+                this,
+                LinearLayoutManager.VERTICAL
+            )
+        )
 
         fab.setOnClickListener { view ->
             startActivity<NewDiet>()
