@@ -242,6 +242,25 @@ class DbHelper(context: Context) :
         updateUserDiets(username, jsonDiets.toString())
     }
 
+    fun editDiet(username: String, dietName: String, allergenList: ArrayList<Allergen>) {
+        val editedDiet = Diet(dietName)
+        editedDiet.allergens.addAll(allergenList)
+
+        val jsonDiets = JSONArray()
+        getUserDiets(username).forEach {
+            if (it.name.equals(dietName)) {
+                jsonDiets.put(dietToJSONObject(editedDiet))
+            } else {
+                jsonDiets.put(dietToJSONObject(it))
+            }
+        }
+
+
+
+        Log.d("XDXDXD", jsonDiets.toString())
+        updateUserDiets(username, jsonDiets.toString())
+    }
+
     private fun updateUserDiets(username: String, jsonString: String) {
         val db = this.writableDatabase
         val values = ContentValues()

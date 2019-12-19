@@ -43,12 +43,13 @@ class EditDiet : AppCompatActivity() {
         )
 
         saveDietButton.setOnClickListener {
-            DbHelper(applicationContext).addDiet(
+            DbHelper(applicationContext).editDiet(
                 getCurrentUser(applicationContext),
                 dietNameEditText.text.toString(),
                 allergenList
             )
             toast("Zapisano")
+            finish()
         }
 
         cancelButton.setOnClickListener { onBackPressed() }

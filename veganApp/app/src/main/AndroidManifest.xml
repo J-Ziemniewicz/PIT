@@ -19,6 +19,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
+        <activity android:name=".RestaurantActivity"></activity>
         <activity
                 android:name=".EditDiet"
                 android:windowSoftInputMode="adjustPan" />
