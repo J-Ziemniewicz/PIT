@@ -19,6 +19,7 @@ class DietList : AppCompatActivity() {
         setContentView(R.layout.activity_diet_list)
         setSupportActionBar(toolbar)
 
+        supportActionBar?.title = "Moja dieta"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         dietList.addAll(DbHelper(applicationContext).getUserDiets(getCurrentUser(applicationContext)))

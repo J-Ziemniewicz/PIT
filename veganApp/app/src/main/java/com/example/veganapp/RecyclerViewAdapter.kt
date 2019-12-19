@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.veganapp.model.Restaurant
 import kotlinx.android.synthetic.main.recyclerview_row.view.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import java.io.File
 
@@ -59,7 +60,7 @@ class RecyclerViewAdapter(
 
 
         holder.itemView.setOnClickListener {
-            context.toast("TODO")
+            context.startActivity<RestaurantActivity>("position" to position)
         }
     }
 
