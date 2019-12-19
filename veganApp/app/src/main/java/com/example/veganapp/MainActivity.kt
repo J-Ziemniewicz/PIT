@@ -1,6 +1,7 @@
 package com.example.veganapp
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.view.Menu
@@ -8,10 +9,17 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -20,11 +28,14 @@ import org.jetbrains.anko.noButton
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.yesButton
 
-class MainActivity : AppCompatActivity(), OnMapReadyCallback {
+class MainActivity : AppCompatActivity(), OnMapReadyCallback,GoogleMap.OnMarkerClickListener  {
     private lateinit var mDrawerLayout: androidx.drawerlayout.widget.DrawerLayout
     private lateinit var mNavigationView: NavigationView
     private lateinit var sMapFragment : SupportMapFragment
     private lateinit var lastLocation: Location
+    private lateinit var map: GoogleMap
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +57,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         val headerView: View = mNavigationView.getHeaderView(0)
         val navUsername: TextView = headerView.findViewById(R.id.usernameTextView)
         navUsername.text = getCurrentUser(applicationContext)
-        sMapFragment.getMapAsync(this);
+        sMapFragment.getMapAsync(this)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         val manager = supportFragmentManager
         val transaction = manager.beginTransaction()
         transaction.add(R.id.map, sMapFragment)
@@ -173,7 +185,47 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         }.show()
     }
 
-    override fun onMapReady(p0: GoogleMap?) {
+    override fun onMapReady(googleMap: GoogleMap) {
+        map = googleMap
+        val poznan = LatLng(52.4080, 16.9341)
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(poznan,14.0f))
+        map.setOnMarkerClickListener(this)
 
+        setUpMap()
+
+        placeMarkerOnMap(LatLng(52.407717,16.933963),"Restauracja Ratuszova")
+        placeMarkerOnMap(LatLng(52.400861,16.926649),"Restauracja Ratuszova")
+    }
+    companion object {
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 1
+    }
+
+    private fun setUpMap() {
+        if (ActivityCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
+            return
+        }
+        map.isMyLocationEnabled = true
+
+// 2
+        fusedLocationClient.lastLocation.addOnSuccessListener(this) { location ->
+            // Got last known location. In some rare situations this can be null.
+            // 3
+            if (location != null) {
+                lastLocation = location
+                val currentLatLng = LatLng(location.latitude, location.longitude)
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 14.0f))
+            }
+        }
+    }
+    override fun onMarkerClick(p0: Marker?) = false
+
+    private fun placeMarkerOnMap(location: LatLng, title: String) {
+        // 1
+        val markerOptions = MarkerOptions().position(location).title(title)
+        // 2
+        map.addMarker(markerOptions)
     }
 }
