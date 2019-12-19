@@ -5,7 +5,8 @@ data class Restaurant(
     var address: String,
     var type: String,
     var imagePath: String,
-    var menu: List<Dish>
+    var menu: List<Dish>,
+    var hours: String
 )
 
 data class Dish(

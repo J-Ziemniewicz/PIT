@@ -28,14 +28,13 @@ import org.jetbrains.anko.noButton
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.yesButton
 
-class MainActivity : AppCompatActivity(), OnMapReadyCallback,GoogleMap.OnMarkerClickListener  {
+class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     private lateinit var mDrawerLayout: androidx.drawerlayout.widget.DrawerLayout
     private lateinit var mNavigationView: NavigationView
-    private lateinit var sMapFragment : SupportMapFragment
+    private lateinit var sMapFragment: SupportMapFragment
     private lateinit var lastLocation: Location
     private lateinit var map: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -188,23 +187,29 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback,GoogleMap.OnMarkerC
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         val poznan = LatLng(52.4080, 16.9341)
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(poznan,14.0f))
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(poznan, 14.0f))
         map.setOnMarkerClickListener(this)
 
         setUpMap()
 
-        placeMarkerOnMap(LatLng(52.407717,16.933963),"Restauracja Ratuszova")
-        placeMarkerOnMap(LatLng(52.400861,16.926649),"Restauracja Ratuszova")
+        placeMarkerOnMap(LatLng(52.4075323,16.9340189), "Restauracja Ratuszova")
+        placeMarkerOnMap(LatLng(52.4006427,16.9266153), "Matti Sushi")
     }
+
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
 
     private fun setUpMap() {
-        if (ActivityCompat.checkSelfPermission(this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE
+            )
             return
         }
         map.isMyLocationEnabled = true
@@ -220,6 +225,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback,GoogleMap.OnMarkerC
             }
         }
     }
+
     override fun onMarkerClick(p0: Marker?) = false
 
     private fun placeMarkerOnMap(location: LatLng, title: String) {

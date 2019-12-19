@@ -14,7 +14,8 @@ fun getRestaurantMocks(): ArrayList<Restaurant> {
             "ratuszova.jpg",
             listOf<Dish>(
                 Dish("asdfdg", listOf<String>("mleko", "orzechy"))
-            )
+            ),
+            "Pn-Pt: 12 - 22\nSoboty: 12 - 2\nNiedziele: 12 - 21"
         )
     )
 
@@ -27,7 +28,8 @@ fun getRestaurantMocks(): ArrayList<Restaurant> {
             listOf<Dish>(
                 Dish("asdfdg", listOf<String>("mleko", "orzechy")),
                 Dish("qwerty", listOf<String>("coś", "innego"))
-            )
+            ),
+            "Pn-Czw: 12 - 23\nPt-Sob: 12 - 24\nNiedziele: 12 - 22"
         )
     )
 

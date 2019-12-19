@@ -23,7 +23,7 @@ class RestaurantActivity : AppCompatActivity() {
         restaurantNameTextView.text = restaurant.name
         restaurantTypeTextView.text = restaurant.type
         restaurantAddressTextView.text = restaurant.address
-        restaurantHoursTextView.text = "Pn-Pt: 8 - 21\nSoboty: 10 - 21\nNiedziele: 10 - 20"
+        restaurantHoursTextView.text = restaurant.hours
         ratingBar.rating = 4.5F
         menuExpandableListView.adapter
 
