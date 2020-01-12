@@ -45,4 +45,9 @@ class DietList : AppCompatActivity() {
         dietList.addAll(DbHelper(applicationContext).getUserDiets(getCurrentUser(applicationContext)))
         dietListRecyclerView.adapter?.notifyDataSetChanged()
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
 }

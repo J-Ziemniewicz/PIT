@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
@@ -27,8 +28,12 @@ import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.yesButton
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowLongClickListener;
 
-class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener,
+    GoogleMap.OnInfoWindowClickListener
+
+{
     private lateinit var mDrawerLayout: androidx.drawerlayout.widget.DrawerLayout
     private lateinit var mNavigationView: NavigationView
     private lateinit var sMapFragment: SupportMapFragment
@@ -43,8 +48,9 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         setContentView(R.layout.activity_main)
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            val intent = Intent(this, Search::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_up,R.anim.slide_out_up)
         }
 
         mDrawerLayout = findViewById(R.id.drawer_layout)
@@ -189,6 +195,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         val poznan = LatLng(52.4080, 16.9341)
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(poznan, 14.0f))
         map.setOnMarkerClickListener(this)
+        map.uiSettings.isMapToolbarEnabled = false
+        map.uiSettings.isZoomControlsEnabled = false
 
         setUpMap()
 
@@ -226,12 +234,43 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         }
     }
 
-    override fun onMarkerClick(p0: Marker?) = false
+    override fun onMarkerClick(marker : Marker) : Boolean{
+//        if (marker.title.equals("Restauracja Ratuszova"))
+//        {
+//            val thread = Thread {
+//                run {
+//                    val intent = Intent(this, ShareActivity::class.java)
+//                    startActivity(intent)
+//                }
+//            }
+//            thread.start()
+//        }
+        return false
+    }
+
+
 
     private fun placeMarkerOnMap(location: LatLng, title: String) {
         // 1
         val markerOptions = MarkerOptions().position(location).title(title)
         // 2
         map.addMarker(markerOptions)
+    }
+
+    //TODO: Nie działa klikanie na okienko markera
+    override fun onInfoWindowClick(marker: Marker) {
+//        Toast.makeText(this, "Info window clicked",
+//            Toast.LENGTH_SHORT).show();
+
+        if (marker.title.equals("Restauracja Ratuszova"))
+        {
+            val thread = Thread {
+                run {
+                    val intent = Intent(this, ShareActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+            thread.start()
+        }
     }
 }

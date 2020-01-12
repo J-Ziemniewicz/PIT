@@ -7,8 +7,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
             android:allowBackup="true"
@@ -19,15 +19,16 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
-        <activity android:name=".RestaurantActivity"></activity>
-        <activity
-                android:name=".EditDiet"
-                android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".Search"></activity>
 
         <uses-library
                 android:name="org.apache.http.legacy"
                 android:required="false" />
 
+        <activity android:name=".RestaurantActivity" />
+        <activity
+                android:name=".EditDiet"
+                android:windowSoftInputMode="adjustPan" />
         <activity
                 android:name=".NewDiet"
                 android:windowSoftInputMode="adjustPan" />
