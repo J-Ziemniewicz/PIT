@@ -28,10 +28,20 @@ class RestaurantActivity : AppCompatActivity() {
         menuExpandableListView.adapter
 
         expandableListView = findViewById(R.id.menuExpandableListView)
-        if (expandableListView != null) {
+        if (expandableListView != null && restaurantNameTextView.text=="Restauracja Ratuszova") {
             val listData = HashMap<String, List<String>>()
-            listData.put("Menu", arrayListOf<String>("wypisane dania\n z alergenami\n", "kolejne danie", "itd\n\n...\n"))
-            listData.put("Opinie", arrayListOf<String>("bardzo fajna knajpa", "smacznie i niedrogo"))
+            listData.put("Menu", arrayListOf<String>("Pierogi z Kaczką", "Gicz jagnięca", "Tatar z polędwicy wołowej","Krem z kiszonych ogórków"))
+            listData.put("Opinie", arrayListOf<String>("Najlepsza restauracja w Poznaniu. Tradycyjna i przyjemna atmosfera. Polecam", "Restauracja ze świetną obsługą i jedzeniem. Tatar wołowy nie z tej ziemi"))
+            val titleList = arrayListOf<String>("Menu", "Opinie")
+            val adapter = MenuExpandableListViewAdapter(this, titleList as ArrayList<String>, listData)
+            expandableListView!!.setAdapter(adapter)
+        }
+
+        if (expandableListView != null && restaurantNameTextView.text=="Matii Sushi") {
+            val listData = HashMap<String, List<String>>()
+            listData.put("Menu", arrayListOf<String>("Nigiri set", "Osaka", "Mitsuro","Yoko+"))
+            listData.put("Opinie", arrayListOf<String>("Great place with great Japanese food", "Smaczne jedzenie, miły personel i piękna restauracja.Polecam" +
+                    ""))
             val titleList = arrayListOf<String>("Menu", "Opinie")
             val adapter = MenuExpandableListViewAdapter(this, titleList as ArrayList<String>, listData)
             expandableListView!!.setAdapter(adapter)
