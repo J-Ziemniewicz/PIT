@@ -8,10 +8,11 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
+import com.example.veganapp.data.getRestaurantMocks
+import com.example.veganapp.model.Restaurant
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -22,13 +23,11 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.app_bar_main.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.yesButton
-import com.google.android.gms.maps.GoogleMap.OnInfoWindowLongClickListener;
 
 class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener,
     GoogleMap.OnInfoWindowClickListener
@@ -200,8 +199,18 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
         setUpMap()
 
-        placeMarkerOnMap(LatLng(52.4075323,16.9340189), "Restauracja Ratuszova")
-        placeMarkerOnMap(LatLng(52.4006427,16.9266153), "Matti Sushi")
+        val customInfoWindow = MapInfoWindowGoogleMap(this)
+        map.setInfoWindowAdapter(customInfoWindow)
+        map.setOnInfoWindowClickListener { marker: Marker? ->
+            run {
+                startActivity<RestaurantActivity>("position" to marker?.snippet.toString().toInt())
+            }
+        }
+
+//        placeMarkerOnMap(LatLng(52.4075323,16.9340189), "Restauracja Ratuszova", "Pn-Pt: 12 - 22\nSoboty: 12 - 2\nNiedziele: 12 - 21")
+        placeCustomMarkerOnMap(LatLng(52.4075323,16.9340189), getRestaurantMocks()[0], "0")
+//        placeMarkerOnMap(LatLng(52.4006427,16.9266153), "Matti Sushi", "Pn-Czw: 12 - 23\nPt-Sob: 12 - 24\nNiedziele: 12 - 22")
+        placeCustomMarkerOnMap(LatLng(52.4006427,16.9266153), getRestaurantMocks()[1], "1")
     }
 
     companion object {
@@ -250,12 +259,24 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
 
 
-    private fun placeMarkerOnMap(location: LatLng, title: String) {
+    private fun placeMarkerOnMap(location: LatLng, title: String, hours: String) {
         // 1
-        val markerOptions = MarkerOptions().position(location).title(title)
+        val markerOptions = MarkerOptions().position(location).title(title).snippet(hours)
         // 2
         map.addMarker(markerOptions)
     }
+
+    private fun placeCustomMarkerOnMap(location: LatLng, restaurant: Restaurant, position: String) {
+        val markerOptions = MarkerOptions()
+        markerOptions.position(location)
+            .title("Location Details")
+            .snippet(position)
+
+        val marker = map!!.addMarker(markerOptions)
+        marker.tag = restaurant
+    }
+
+
 
     //TODO: Nie działa klikanie na okienko markera
     override fun onInfoWindowClick(marker: Marker) {
