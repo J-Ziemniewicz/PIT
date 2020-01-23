@@ -9,6 +9,7 @@ import android.widget.ExpandableListView
 import com.example.veganapp.data.getRestaurantMocks
 import com.example.veganapp.model.Restaurant
 import kotlinx.android.synthetic.main.activity_restaurant.*
+import org.jetbrains.anko.startActivity
 import java.io.File
 
 class RestaurantActivity : AppCompatActivity() {
@@ -46,6 +47,10 @@ class RestaurantActivity : AppCompatActivity() {
             val adapter = MenuExpandableListViewAdapter(this, titleList as ArrayList<String>, listData)
             expandableListView!!.setAdapter(adapter)
 
+        }
+
+        showRouteButton.setOnClickListener{
+            startActivity<ShowRouteMockActivity>()
         }
 
     }

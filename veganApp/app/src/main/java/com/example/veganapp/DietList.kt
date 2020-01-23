@@ -26,7 +26,7 @@ class DietList : AppCompatActivity() {
 
         layoutManager = LinearLayoutManager(this)
         dietListRecyclerView.layoutManager = layoutManager
-        dietListRecyclerView.adapter = DietListRecyclerViewAdapter(this, dietList)
+        dietListRecyclerView.adapter = DietListRecyclerViewAdapter(this, dietList, 0)
         dietListRecyclerView.addItemDecoration(
             DividerItemDecoration(
                 this,

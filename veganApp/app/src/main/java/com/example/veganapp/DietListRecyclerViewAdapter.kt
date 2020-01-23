@@ -4,16 +4,19 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
 import android.widget.TextView
 import com.example.veganapp.model.Allergen
 import com.example.veganapp.model.Diet
 import kotlinx.android.synthetic.main.diet_recycler_row.view.*
+import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.startActivity
 
 
 class DietListRecyclerViewAdapter(
     private val context: DietList,
-    private val dietList: ArrayList<Diet>
+    private val dietList: ArrayList<Diet>,
+    private var lastChecked: Int
 ) :
     RecyclerView.Adapter<DietListRecyclerViewAdapter.ViewHolder>() {
 
@@ -41,11 +44,19 @@ class DietListRecyclerViewAdapter(
         holder.itemView.setOnClickListener {
             context.startActivity<EditDiet>("diet" to diet)
         }
+
+        holder.radioButton.isChecked = lastChecked == position
+
+        holder.radioButton.onClick {
+            lastChecked = position
+            notifyDataSetChanged()
+        }
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val dietName: TextView? = view.dietNameTextView
         val dietAllergens: TextView? = view.dietAllergensTextView
+        val radioButton: RadioButton = view.radioButton
     }
 
     private fun getActiveAllergens(allergenList: ArrayList<Allergen>): String {
